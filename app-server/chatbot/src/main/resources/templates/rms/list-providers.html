@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<head>
+<title>EFDA Resource Management System: Provider Listing</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+
+<body>
+	<div class="container">
+		<h3>Search for providers</h3>
+		<form action="#" th:action="@{/rms/providers}" method="GET">
+
+			<table>
+				<tr>
+					<th>Agency Name</th>
+					<th>City</th>
+					<th>County</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="agencyName"
+						placeholder="Agency name" class="form-control mb-4 col-4">
+					</td>
+					<td><input type="text" name="city" placeholder="City"
+						class="form-control mb-4 col-4"></td>
+					<td><input type="text" name="county" placeholder="County"
+						class="form-control mb-4 col-4"></td>
+				</tr>
+				<tr>
+					<td colspan="3"><button type="submit"
+							class="btn btn-info col-2">Search</button></td>
+				</tr>
+
+			</table>
+			<br>
+			<hr>
+
+			<h3>Provider Listings</h3>
+			<hr>
+			<!-- Need to add paging -->
+			<!-- <th:text=${providers.getCount()}/> -->
+			<!-- count=${providers.getPageNumber()} -->
+			<!-- count=${providers.getPageOffset()} -->
+			<!-- count=${providers.getPageTotal()} -->
+			<table class="table table-border table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Manage</th>
+						<th>ID</th>
+						<th>Agency Name</th>
+						<th colspan="2">Address</th>
+						<!-- 				<th> addr2 </th> -->
+						<th>City</th>
+						<th>State</th>
+						<th>Zip</th>
+						<th>County</th>
+						<th>Phone Number</th>
+						<th>Website</th>
+						<th>Ownership Type</th>
+						<th>Coordinates</th>
+						<th>Default Service Area Type</th>
+						<th>Service Area Entities</th>
+						<th>Service Area Polygon</th>
+						<th>Date Last Updated</th>
+						<th>Data Source</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tempRL : ${providers}">
+						<td><a
+							th:href="@{/rms/resources/{id}(id=${tempRL.idCmsOther})}"
+							class="btn btn-info btn-sm">Manage Resources</a></td>
+
+						<td th:text="${tempRL.idCmsOther}" />
+						<td th:text="${tempRL.agencyName}" />
+						<td th:text="${tempRL.addr1}" />
+						<td th:text="${tempRL.addr2}" />
+						<td th:text="${tempRL.city}" />
+						<td th:text="${tempRL.state}" />
+						<td th:text="${tempRL.zip}" />
+						<td th:text="${tempRL.county}" />
+						<td th:text="${tempRL.phoneNumber}" />
+						<td th:text="${tempRL.website}" />
+						<td th:text="${tempRL.ownershipType}" />
+						<td th:text="${tempRL.coordinates}" />
+						<td th:text="${tempRL.defaultServiceAreaType}" />
+						<td th:text="${tempRL.serviceAreaEntities}" />
+						<td th:text="${tempRL.serviceAreaPolygon}" />
+						<td th:text="${tempRL.dateLastUpdated}" />
+						<td th:text="${tempRL.dataSource}" />
+						<td th:text="${tempRL.notes}" />
+					</tr>
+				</tbody>
+			</table>
+	</div>
+</body>
+
+</html>

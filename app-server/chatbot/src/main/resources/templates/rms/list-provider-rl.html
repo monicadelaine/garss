@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<head>
+<title>EFDA Resource Management System</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+
+
+
+<body>
+
+	<div class="container">
+
+		<h3>
+			Resources by Provider:
+			<p th:text="${idCmsOther}">Provider id</p>
+		</h3>
+		<hr>
+		<form
+			th:action="@{/rms/showFormForAdd/(idCmsOther=${idCmsOther},resourceType=${resourceType})}"
+			method="get">
+			<div class="form-group row">
+				<select class="form-control" th:name="resourceType">
+					<option th:each="opentype : ${resourceTypesToAdd}"
+						th:value="${opentype}" th:text="${opentype}" />
+				</select> <input type="hidden" name="idCmsOther" th:value="${idCmsOther}" />
+			</div>
+			<button class="btn btn-primary btn-sm mb-3" type="submit"
+				th:name="action" th:value="in">Add Resource</button>
+
+		</form>
+		<hr>
+
+		<table class="table table-border table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Action</th>
+					<th>Provider ID</th>
+					<th>Resource Classification</th>
+					<th>Contact name</th>
+					<th>Contact email</th>
+					<th>Contact phone</th>
+					<th>Contact messaging</th>
+					<th>Date Resource Added</th>
+					<th>Date Resource Last Verified</th>
+					<!-- 				<th>Service Area(s)</th> -->
+					<th>Service Area Description</th>
+					<th>Source</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tempRL : ${rls}">
+					<td><a
+						th:href="@{/rms/showFormForUpdate(idCmsOther=${tempRL.idCmsOther},resourceType=${tempRL.resourceType})}"
+						class="btn btn-info btn-sm">Update</a> <a
+						th:href="@{/rms/delete(idCmsOther=${tempRL.idCmsOther},resourceType=${tempRL.resourceType})}"
+						class="btn btn-danger btn-sm"
+						onclick="if (!(confirm('Are you sure you want to delete?')))return false">Delete</a>
+					</td>
+					<td th:text="${tempRL.idCmsOther}" />
+					<td th:text="${tempRL.resourceType}" />
+					<td th:text="${tempRL.contactName}" />
+					<td th:text="${tempRL.contactEmail}" />
+					<td th:text="${tempRL.contactPhone}" />
+					<td th:text="${tempRL.contactMessaging}" />
+					<td th:text="${tempRL.dateAdded}" />
+					<td th:text="${tempRL.dateLastVerified}" />
+					<!-- 				<td th:text="${tempRL.serviceArea}"/> -->
+					<td th:text="${tempRL.serviceAreaDescription}" />
+					<td th:text="${tempRL.source}" />
+					<!-- 				Add new button or link		 -->
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	Link to return to provider list
+	
+</body>
+
+</html>

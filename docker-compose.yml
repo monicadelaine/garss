@@ -1,0 +1,35 @@
+version: "3.0"  
+#build rasa to add current files
+
+services:
+
+  spring:
+    build:
+      context: ./app-server/chatbot
+    #container_name: chatbot-spring-app-svr
+    environment:
+      POSTGIS_HOST: postgis
+      POSTGIS_PORT: 5432
+
+    ports:
+     - target: 80
+       published: 80
+    networks:
+     - rasanet
+
+  postgis:
+    build: 
+      context: ./postgis_garss
+
+    ports:
+     - 5432:5432
+    networks:
+     - rasanet
+    volumes:
+     - postgis_garss:/var/lib/postgresql/data
+
+volumes:
+  postgis_garss:
+networks:
+    rasanet:
+      driver: bridge
