@@ -28,3 +28,15 @@ Delete volume to start with fresh database
 ./mvnw clean package</pre>
 
 
+
+## Getting project to compile and run on new system
+
+1. Install Eclipse, docker and github desktop
+2. (Windows) Need wsl2 installed
+2. (Windows) May need to all docker access through firewall
+3. (Windows) May need to change port to 8080
+4. Need to install lombak on eclipse
+5. Should install maven
+6. Will need access to command line
+
+

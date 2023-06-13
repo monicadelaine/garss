@@ -39,6 +39,7 @@ import edu.ua.efda.chatbot.service.ResourceListingService;
 import edu.ua.efda.chatbot.spec.entity.utils.PagingResponse;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 
@@ -62,10 +63,10 @@ public class EfdaResourceTrackerController {
 	}
 
 	@GetMapping(value = "/providers")
-	public String get(@And({ @Spec(path = "city", params = "city", spec = Like.class),
-			@Spec(path = "zip", params = "zip", spec = Like.class),
-			@Spec(path = "county", params = "county", spec = Equal.class),
-			@Spec(path = "agencyName", params = "agencyName", spec = Like.class),
+	public String get(@And({ @Spec(path = "city", params = "city", spec = LikeIgnoreCase.class),
+			@Spec(path = "zip", params = "zip", spec = Equal.class),
+			@Spec(path = "county", params = "county", spec = LikeIgnoreCase.class),
+			@Spec(path = "agencyName", params = "agencyName", spec = LikeIgnoreCase.class),
 			// @Spec(path = "createDate", params = "createDate", spec = Equal.class),
 			// @Spec(path = "createDate", params = {"createDateGt", "createDateLt"}, spec =
 			// Between.class)
