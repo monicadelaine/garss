@@ -19,6 +19,9 @@
 
 <body>
 	<div class="container">
+		<div th:if="${errorMessage}">
+			<div th:text="${errorMessage}"></div>
+		</div>
 		<h3>Search for providers</h3>
 		<form action="#" th:action="@{/rms/providers}" method="GET">
 

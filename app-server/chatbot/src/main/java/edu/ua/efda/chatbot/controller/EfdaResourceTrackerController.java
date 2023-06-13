@@ -42,6 +42,7 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/rms")
@@ -70,17 +71,21 @@ public class EfdaResourceTrackerController {
 			// @Spec(path = "createDate", params = "createDate", spec = Equal.class),
 			// @Spec(path = "createDate", params = {"createDateGt", "createDateLt"}, spec =
 			// Between.class)
-	}) Specification<Provider> spec, Sort sort, @RequestHeader HttpHeaders headers, Model theModel) {
+	}) Specification<Provider> spec, Sort sort, @RequestHeader HttpHeaders headers, RedirectAttributes redirectAttributes, Model theModel) {
 
 		PagingResponse response = providerService.get(spec, headers, sort);
 
 		if (response == null || response.getCount() == 0) {
 			System.out.println("id em[ty");
+			//theModel.addAttribute("empty","No matching records found");
+			redirectAttributes.addFlashAttribute("errorMessage", "No  records found");
+			return "redirect:/rms/providers?error=No%20records%20found";
 		}
 		Point pt = geometryFactory.createPoint(new Coordinate(-86.496774, 32.344437));
 		System.out.println("id" + response.getCount() + " " + response.getPageTotal());
 
 		response.getElements().get(0).setCoordinates(pt);
+		
 		theModel.addAttribute("providers", response.getElements());
 		theModel.addAttribute("count", response.getCount());
 		this.providerService.save(response.getElements().get(0));
